@@ -103,7 +103,8 @@ public class Grid<T>
                     continue;
 
                 var position = new Vector2(x, y) + nodePosition;
-                if (position.x > _x || position.y > _y)
+
+                if (position.x > _x-1 || position.y > _y-1 || position.x < 0 || position.y < 0)
                     continue;
 
                 neighbours.Add(GetNode(position));
