@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DifficultyHandler : MonoBehaviour {
+public class DifficultySelector : MonoBehaviour {
 
     [SerializeField]
     private string _difficultyKey = "Difficulty";

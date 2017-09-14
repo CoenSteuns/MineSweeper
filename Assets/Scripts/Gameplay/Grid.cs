@@ -108,6 +108,8 @@ public class Grid<T>
                     continue;
 
                 neighbours.Add(GetNode(position));
+
+
             }
         }
         return neighbours.ToArray();

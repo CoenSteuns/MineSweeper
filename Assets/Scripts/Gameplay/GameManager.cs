@@ -10,11 +10,15 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject _tile;
 
     private Difficulty _difficulty;
-    private GridHandler _gridHandler;
+    private GameStarter _gridHandler;
 
     public Grid<MineSweeperNode> Grid { get { return _gridHandler.Grid; } }
 
     public UnityEvent OnLose;
+
+    public int _flaggedTiles = 0;
+
+
 
     private void Awake()
     {
@@ -27,8 +31,9 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start () {
-        _gridHandler = GetComponent<GridHandler>();
-        _difficulty = (Difficulty)GetComponent<DifficultyHandler>().Difficulty;
+
+        _gridHandler = GetComponent<GameStarter>();
+        _difficulty = (Difficulty)GetComponent<DifficultySelector>().Difficulty;
 
         _gridHandler.StartGame(_difficulty.Width, _difficulty.Height, _difficulty.Bombs, _tile);
     }
@@ -42,4 +47,7 @@ public class GameManager : MonoBehaviour {
     {
         _gridHandler.StartGame(_difficulty.Width, _difficulty.Height, _difficulty.Bombs, _tile);
     }
+
+
+
 }

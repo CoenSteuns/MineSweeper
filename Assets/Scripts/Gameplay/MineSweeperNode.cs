@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class MineSweeperNode : Node {
     public int NeighbourBombs { get { return neighboursBombs; } }
     public bool IsOpen { get { return open; } }
 
-
+    public Action<bool, bool, int, int> OnFlag;
 
     public StateMachine<TileState> _stateMachine;
 
@@ -47,6 +48,8 @@ public class MineSweeperNode : Node {
 
     public void SetIsFlagged(bool isFlagged)
     {
+        if(OnFlag != null)
+            OnFlag(_isFlagged, _isBomb, x, y);
         _isFlagged = isFlagged;
     }
 
@@ -78,7 +81,5 @@ public class MineSweeperNode : Node {
            // GetComponent<SpriteRenderer>().color = Color.red;
 
     }
-
-
 
 }

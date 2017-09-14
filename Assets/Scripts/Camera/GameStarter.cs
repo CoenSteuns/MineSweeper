@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridHandler : MonoBehaviour {
+public class GameStarter : MonoBehaviour {
 
     private Grid<MineSweeperNode> _grid;
     private List<Vector2> _bombs;
@@ -23,7 +23,7 @@ public class GridHandler : MonoBehaviour {
             return node;
         });
         CreateBomb(width, height, bombs);
-        
+
     }
 
     private void CreateBomb(int width, int height, int bombs)
