@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
     public UnityEvent OnLose;
     public UnityEvent OnWin;
 
-    public List<Vector2> _flaggedTiles;
+    private List<Vector2> _flaggedTiles;
 
 
 
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
         _gridHandler = GetComponent<GameStarter>();
         _difficulty = (Difficulty)GetComponent<DifficultySelector>().Difficulty;
 
-        _gridHandler.StartGame(_difficulty.Width, _difficulty.Height, _difficulty.Bombs, _tile);
+        StartGame();
     }
 
     public void GameLost()
@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour {
     public void ChangeFlag(int x, int y)
     {
         var newFlag = new Vector2(x, y);
+
         if (!_flaggedTiles.Contains(newFlag)) {
             _flaggedTiles.Add(newFlag);
             CheckWin();
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour {
         }
 
         _flaggedTiles.Remove(newFlag);
-            
+        CheckWin();
     }
 
     private void CheckWin()
@@ -72,11 +73,11 @@ public class GameManager : MonoBehaviour {
             if (!_gridHandler.Bombs.Contains(_flaggedTiles[i]))
                 return;
         }
-        
+
         if(OnWin != null)
             OnWin.Invoke();
 
-        
+
     }
 
 }

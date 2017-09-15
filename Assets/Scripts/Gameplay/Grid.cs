@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class Grid<T>
 {
-    private int _x;
-    private int _y;
 
     private T[,] _grid;
 
-    public T[,] GridObject
+    public T[,] Array
     {
         get { return _grid; }
     }
-    public int X
+    public int Width
     {
-        get { return _x; }
+        get { return _grid.GetLength(0); }
     }
-    public int Y
+    public int Height
     {
-        get { return _y; }
+        get { return _grid.GetLength(1); }
     }
 
     public Grid(int x, int y)
     {
-        _x = x;
-        _y = y;
         _grid = new T[x, y];
         ResetGrid();
     }
@@ -36,7 +32,7 @@ public class Grid<T>
     }
     public T GetNode(int x, int y)
     {
-        if (x > _x || y > _y) { return default(T); }
+        if (x > Width-1 || y > Height-1) { return default(T); }
         return _grid[x, y];
     }
 
@@ -46,18 +42,17 @@ public class Grid<T>
     }
     public void SetNode(T newNode, int x, int y)
     {
-        if (x > _x || y > _y) { return; }
+        if (x > Width-1 || y > Height-1) { return; }
         _grid[x, y] = newNode;
     }
 
     public void ForEachNode(Func<T,int, int, T> test)
     {
-        for (int x = 0; x < _x; x++)
+        for (int x = 0; x < Width; x++)
         {
-            for (int y = 0; y < _y; y++)
+            for (int y = 0; y < Height; y++)
             {
                 _grid[x, y] = test(_grid[x, y], x, y);
-
             }
         }
     }
@@ -67,9 +62,9 @@ public class Grid<T>
         _grid = ResetGrid(_grid, node);
     }
 
-    public void ResizeGrid(int x, int y, T newNodes = default(T), bool keepOldValues = true)
+    public void ResizeGrid(int width, int height, T newNodes = default(T), bool keepOldValues = true)
     {
-        var grid = new T[x, y];
+        var grid = new T[width, height];
         grid = ResetGrid(grid, newNodes);
         if (!keepOldValues)
         {
@@ -77,8 +72,8 @@ public class Grid<T>
             return;
         }
 
-        var resetX = x > _grid.GetLength(0) ? _grid.GetLength(0) : x;
-        var resetY = y > _grid.GetLength(1) ? _grid.GetLength(1) : y;
+        var resetX = width > _grid.GetLength(0) ? _grid.GetLength(0) : width;
+        var resetY = height > _grid.GetLength(1) ? _grid.GetLength(1) : height;
 
         for (int fx = 0; fx < resetX; fx++)
         {
@@ -104,7 +99,7 @@ public class Grid<T>
 
                 var position = new Vector2(x, y) + nodePosition;
 
-                if (position.x > _x-1 || position.y > _y-1 || position.x < 0 || position.y < 0)
+                if (position.x > Width-1 || position.y > Height-1 || position.x < 0 || position.y < 0)
                     continue;
 
                 neighbours.Add(GetNode(position));

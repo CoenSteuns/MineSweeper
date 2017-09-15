@@ -17,7 +17,6 @@ public class OpenState : State {
 
         GetComponent<SpriteRenderer>().color = _openColor;
         _node = GetComponent<MineSweeperNode>();
-        _node.Open();
         _spriteHandler = GetComponentInChildren<SpriteHandler>();
 
         _isActive = true;
@@ -49,7 +48,7 @@ public class OpenState : State {
             if (!neighbours[i].IsBomb && neighbours[i].NeighbourBombs == 0 || !neighbours[i].IsBomb && _node.NeighbourBombs == 0)
             {
                 if (!neighbours[i].IsOpen)
-                    neighbours[i].StateMachine.SetState(TileState.open);
+                    neighbours[i].OpenTile();
             }
         }
 

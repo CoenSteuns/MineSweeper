@@ -27,6 +27,7 @@ public class ClosedState : State {
 
 
     }
+
     private void OnMouseOver()
     {
         if (!_isActive)
@@ -34,7 +35,7 @@ public class ClosedState : State {
 
         if (Input.GetMouseButtonDown(0))
         {
-            _node.StateMachine.SetState(TileState.open);
+            _node.OpenTile();
         }
 
         if (Input.GetMouseButtonDown(1))

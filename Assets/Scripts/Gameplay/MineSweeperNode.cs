@@ -42,7 +42,6 @@ public class MineSweeperNode : Node {
 
     public void SetIsBomb(bool bomb)
     {
-
         _isBomb = bomb;
     }
 
@@ -53,14 +52,9 @@ public class MineSweeperNode : Node {
         _isFlagged = isFlagged;
     }
 
-    public void Open()
-    {
-        open = true;
-    }
-
     private void Update()
     {
-        StateMachine.Update();
+        _stateMachine.Update();
     }
 
     public void CheckNeighbours()
@@ -77,9 +71,14 @@ public class MineSweeperNode : Node {
             neighboursBombs = bombs;
         }
 
-        //if (neighboursBombs == 0 && !IsBomb)
-           // GetComponent<SpriteRenderer>().color = Color.red;
+    }
 
+    public void OpenTile()
+    {
+        if (_isFlagged)
+            return;
+        open = true;
+        StateMachine.SetState(TileState.open);
     }
 
 }

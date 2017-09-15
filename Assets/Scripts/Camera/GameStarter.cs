@@ -22,11 +22,11 @@ public class GameStarter : MonoBehaviour {
 
             return node;
         });
-        CreateBomb(width, height, bombs);
+        CreateBombs(width, height, bombs);
 
     }
 
-    private void CreateBomb(int width, int height, int bombs)
+    private void CreateBombs(int width, int height, int bombs)
     {
         _bombs = new List<Vector2>();
         for (int i = 0; i < bombs; i++)
