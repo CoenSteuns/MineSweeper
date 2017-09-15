@@ -40,6 +40,7 @@ public class ClosedState : State {
         if (Input.GetMouseButtonDown(1))
         {
             _node.SetIsFlagged(!_node.IsFlaggeed);
+            GameManager.instance.ChangeFlag(_node.x, _node.y);
             if (_node.IsFlaggeed)
             {
                 _spriteHandler.SetSprite("flag");
